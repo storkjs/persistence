@@ -1,0 +1,54 @@
+{
+  "name": "storkjs-persistence",
+  "version": "0.0.1",
+  "description": "Basic persistence capabilities for the data object.",
+  "author": {
+    "name": "Sagie Gur-Ari",
+    "email": "sagiegurari@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/storkjs/persistence",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/storkjs/persistence.git"
+  },
+  "bugs": {
+    "url": "https://github.com/storkjs/persistence/issues"
+  },
+  "keywords": [
+    "merge",
+    "diff",
+    "delta",
+    "dirty",
+    "checking",
+    "persistence"
+  ],
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "localtest": "grunt localtest"
+  },
+  "dependencies": {
+    "debuglog": "^1.0.1",
+    "lodash": "^3.10.1"
+  },
+  "devDependencies": {
+    "blanket": "^1.2.1",
+    "chai": "^3.4.1",
+    "grunt": "^0.4.5",
+    "grunt-blanket": "0.0.9",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-coveralls": "^1.0.0",
+    "grunt-mocha-test": "^0.12.7",
+    "load-grunt-tasks": "^3.3.0",
+    "mocha": "^2.3.4",
+    "mocha-lcov-reporter": "^1.0.0",
+    "node.extend": "^1.1.5"
+  }
+}

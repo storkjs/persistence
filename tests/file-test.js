@@ -92,4 +92,39 @@ describe('file', function () {
             });
         });
     });
+
+    describe('on changes', function () {
+        it('multiple change events', function (done) {
+            var file = path.join(tempDir, 'change1.json');
+
+            createMerger({}, file, function (merger) {
+                FilePersistence.create(file, merger, {
+                    invokeInitialRead: true
+                }, function (error, state) {
+                    assert.isNull(error);
+                    assert.isDefined(state);
+
+                    assert.deepEqual({}, merger.object);
+
+                    /*TODO NEED REAL MERGER HERE!!!
+                    merger.override({
+                        a: 'a',
+                        b: 2,
+                        c: [1, 2, 3],
+                        d: {
+                            a: true,
+                            b: false
+                        }
+                    });
+
+                    merger.delete('d.a');
+
+                    merger.merge({c: 'yes'}, )
+                    */
+
+                    done();
+                });
+            });
+        });
+    });
 });

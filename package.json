@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "debuglog": "^1.0.1",
+    "diff-merge": "^0.0.6",
     "lodash": "^3.10.1"
   },
   "devDependencies": {
@@ -49,6 +50,7 @@
     "load-grunt-tasks": "^3.3.0",
     "mocha": "^2.3.4",
     "mocha-lcov-reporter": "^1.0.0",
-    "node.extend": "^1.1.5"
+    "node.extend": "^1.1.5",
+    "rimraf": "^2.4.4"
   }
 }

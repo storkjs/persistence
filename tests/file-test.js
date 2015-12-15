@@ -9,15 +9,14 @@ var path = require('path');
 var fs = require('fs');
 var tempDir = path.join(__dirname, '../target/temp');
 var persistenceUtils = require('../lib/utils');
+var MergeDiff = require('diff-merge');
+var rimraf = require('rimraf');
 
 describe('file', function () {
-    var createMerger = function (data, file, callback) {
-        var merger = new EventEmitter();
-        merger.object = data || {};
+    rimraf.sync(tempDir);
 
-        merger.override = function (data) {
-            merger.object = data;
-        };
+    var createMerger = function (data, file, callback) {
+        var merger = new MergeDiff(data || {});
 
         persistenceUtils.createDirectoryIfNeeded(file, function () {
             callback(merger);
@@ -64,7 +63,9 @@ describe('file', function () {
                     assert.isNull(error);
                     assert.isDefined(state);
 
-                    assert.deepEqual(createObj(), merger.object);
+                    var testMerger = new MergeDiff({});
+                    testMerger.override(createObj());
+                    assert.deepEqual(merger.get(), testMerger.get());
 
                     done();
                 });
@@ -85,7 +86,7 @@ describe('file', function () {
                     assert.isNull(error);
                     assert.isDefined(state);
 
-                    assert.deepEqual({}, merger.object);
+                    assert.deepEqual(merger.get(), {});
 
                     done();
                 });
@@ -104,25 +105,36 @@ describe('file', function () {
                     assert.isNull(error);
                     assert.isDefined(state);
 
-                    assert.deepEqual({}, merger.object);
+                    assert.deepEqual(merger.get(), {});
 
-                    /*TODO NEED REAL MERGER HERE!!!
                     merger.override({
                         a: 'a',
                         b: 2,
                         c: [1, 2, 3],
                         d: {
                             a: true,
-                            b: false
+                            b: false,
+                            c: 'no'
                         }
                     });
 
                     merger.delete('d.a');
 
-                    merger.merge({c: 'yes'}, )
-                    */
+                    merger.merge({c: 'yes'}, 'd');
 
-                    done();
+                    setTimeout(function () {
+                        var data = fs.readFileSync(file, {
+                            encoding: 'utf8'
+                        });
+
+                        assert.isTrue(data.length > 0);
+
+                        data = JSON.parse(data);
+
+                        assert.deepEqual(merger.get(), data);
+
+                        done();
+                    }, 500);
                 });
             });
         });

@@ -34,8 +34,8 @@
   },
   "dependencies": {
     "debuglog": "^1.0.1",
-    "diff-merge": "^0.0.6",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "merge-diff": "^0.0.9"
   },
   "devDependencies": {
     "blanket": "^1.2.1",

@@ -1,7 +1,6 @@
 'use strict';
 /*global describe: false, it: false */
 
-var EventEmitter = require('events').EventEmitter;
 var chai = require('chai');
 var assert = chai.assert;
 var FilePersistence = require('..').File;
@@ -9,8 +8,9 @@ var path = require('path');
 var fs = require('fs');
 var tempDir = path.join(__dirname, '../target/temp');
 var persistenceUtils = require('../lib/utils');
-var MergeDiff = require('diff-merge');
+var MergeDiff = require('merge-diff');
 var rimraf = require('rimraf');
+var extend = require('node.extend');
 
 describe('file', function () {
     rimraf.sync(tempDir);
@@ -107,7 +107,7 @@ describe('file', function () {
 
                     assert.deepEqual(merger.get(), {});
 
-                    merger.override({
+                    var dataObj = {
                         a: 'a',
                         b: 2,
                         c: [1, 2, 3],
@@ -116,7 +116,8 @@ describe('file', function () {
                             b: false,
                             c: 'no'
                         }
-                    });
+                    };
+                    merger.override(dataObj);
 
                     merger.delete('d.a');
 
@@ -131,7 +132,11 @@ describe('file', function () {
 
                         data = JSON.parse(data);
 
-                        assert.deepEqual(merger.get(), data);
+                        var clone = JSON.parse(JSON.stringify(dataObj));
+                        delete clone.d.a;
+                        extend(true, clone, {d: {c: 'yes'}});
+
+                        assert.deepEqual(clone, data);
 
                         done();
                     }, 500);

@@ -1,6 +1,6 @@
 {
   "name": "storkjs-persistence",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Basic persistence capabilities for the data object.",
   "author": {
     "name": "Sagie Gur-Ari",

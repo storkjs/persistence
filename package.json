@@ -1,21 +1,24 @@
 {
-  "name": "storkjs-persistence",
-  "version": "0.0.2",
-  "description": "Basic persistence capabilities for the data object.",
-  "author": {
-    "name": "Sagie Gur-Ari",
-    "email": "sagiegurari@gmail.com"
-  },
-  "license": "MIT",
-  "homepage": "https://github.com/storkjs/persistence",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/storkjs/persistence.git"
-  },
-  "bugs": {
-    "url": "https://github.com/storkjs/persistence/issues"
-  },
-  "keywords": [
+    "name": "storkjs-persistence",
+    "version": "0.0.3",
+    "description": "Basic persistence capabilities for the data object.",
+    "author": {
+        "name": "Sagie Gur-Ari",
+        "email": "sagiegurari@gmail.com"
+    },
+    "license": "MIT",
+    "homepage": "https://github.com/storkjs/persistence",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/storkjs/persistence.git"
+    },
+    "bugs": {
+        "url": "https://github.com/storkjs/persistence/issues"
+    },
+    "engines": {
+        "node": ">=4"
+    },
+    "keywords": [
     "merge",
     "diff",
     "delta",
@@ -23,34 +26,39 @@
     "checking",
     "persistence"
   ],
-  "main": "index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "tests"
-  },
-  "scripts": {
-    "test": "grunt test",
-    "localtest": "grunt localtest"
-  },
-  "dependencies": {
-    "debuglog": "^1.0.1",
-    "lodash": "^3.10.1",
-    "merge-diff": "^0.0.9"
-  },
-  "devDependencies": {
-    "blanket": "^1.2.1",
-    "chai": "^3.4.1",
-    "grunt": "^0.4.5",
-    "grunt-blanket": "0.0.9",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-clean": "^0.7.0",
-    "grunt-contrib-copy": "^0.8.2",
-    "grunt-coveralls": "^1.0.0",
-    "grunt-mocha-test": "^0.12.7",
-    "load-grunt-tasks": "^3.3.0",
-    "mocha": "^2.3.4",
-    "mocha-lcov-reporter": "^1.0.0",
-    "node.extend": "^1.1.5",
-    "rimraf": "^2.4.4"
-  }
+    "main": "index.js",
+    "directories": {
+        "lib": "lib",
+        "test": "tests"
+    },
+    "scripts": {
+        "test": "grunt test",
+        "build": "grunt build",
+        "localtest": "grunt localtest",
+        "prepush": "npm run localtest",
+        "grunt": "grunt"
+    },
+    "dependencies": {
+        "debuglog": "^1.0.1",
+        "lodash": "^4.17.4",
+        "merge-diff": "^0.0.11"
+    },
+    "devDependencies": {
+        "chai": "^3.5.0",
+        "grunt": "^1.0.1",
+        "grunt-cli": "^1.2.0",
+        "grunt-contrib-clean": "^1.1.0",
+        "grunt-coveralls": "^1.0.1",
+        "grunt-eslint": "^19.0.0",
+        "grunt-jsbeautifier": "^0.2.13",
+        "grunt-jsdoc-to-markdown": "^3.0.0",
+        "grunt-mocha-istanbul": "^5.0.2",
+        "husky": "^0.13.3",
+        "istanbul": "^0.4.5",
+        "jit-grunt": "^0.10.0",
+        "mocha": "^3.3.0",
+        "node.extend": "^2.0.0",
+        "rimraf": "^2.6.1",
+        "time-grunt": "^1.4.0"
+    }
 }

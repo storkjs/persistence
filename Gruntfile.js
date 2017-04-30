@@ -1,8 +1,9 @@
 'use strict';
 /*eslint no-sync: 0*/
 
-module.exports = function (grunt) {
-    require('load-grunt-tasks')(grunt);
+module.exports = function(grunt) {
+    require('time-grunt')(grunt);
+    require('jit-grunt')(grunt);
 
     grunt.config.init({
         clean: {
@@ -16,27 +17,28 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        copy: {
-            coverage: {
-                files: [
-                    {
-                        expand: true,
-                        src: ['index.js'],
-                        dest: 'target/coverage'
-                    },
-                    {
-                        expand: true,
-                        src: ['tests/**'],
-                        dest: 'target/coverage'
-                    }
+        jsbeautifier: {
+            full: {
+                options: {
+                    config: '.jsbeautifyrc'
+                },
+                src: [
+                    'package.json',
+                    'index.js',
+                    'lib/**/*.js',
+                    'test/**/*.js'
                 ]
             }
         },
-        blanket: {
+        eslint: {
             full: {
-                files: {
-                    'target/coverage/lib': ['lib/']
-                }
+                options: {
+                    configFile: '.eslintrc.js'
+                },
+                src: [
+                    'index.js',
+                    'lib/**'
+                ]
             }
         },
         mochaTest: {
@@ -45,16 +47,23 @@ module.exports = function (grunt) {
                     timeout: 2000,
                     reporter: 'spec'
                 },
-                src: ['tests/**/*test.js']
-            },
-            coverageLCOV: {
+                src: ['test/**/*spec.js']
+            }
+        },
+        mocha_istanbul: {
+            coverage: {
+                src: 'test/**/*spec.js',
                 options: {
-                    require: 'blanket',
-                    reporter: 'mocha-lcov-reporter',
-                    quiet: true,
-                    captureFile: 'target/coverage/report/coverage.info'
-                },
-                src: ['./target/coverage/tests/*test.js']
+                    coverageFolder: 'target/coverage/report',
+                    root: 'lib',
+                    check: {
+                        lines: 70,
+                        statements: 70,
+                        branches: 50,
+                        functions: 70
+                    },
+                    reportFormats: ['html', 'lcovonly']
+                }
             }
         },
         coveralls: {
@@ -68,14 +77,18 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('localtest', [
-        'mochaTest:full'
+        'clean:target',
+        'eslint:full',
+        'mocha_istanbul:coverage'
+    ]);
+
+    grunt.registerTask('build', [
+        'jsbeautifier:full',
+        'localtest'
     ]);
 
     grunt.registerTask('test', [
-        'clean:target',
-        'copy:coverage',
-        'blanket:full',
-        'mochaTest:coverageLCOV',
+        'localtest',
         'coveralls:full'
     ]);
 };

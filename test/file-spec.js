@@ -121,7 +121,9 @@ describe('file', function () {
 
                     merger.delete('d.a');
 
-                    merger.merge({c: 'yes'}, 'd');
+                    merger.merge({
+                        c: 'yes'
+                    }, 'd');
 
                     setTimeout(function () {
                         var data = fs.readFileSync(file, {
@@ -134,7 +136,11 @@ describe('file', function () {
 
                         var clone = JSON.parse(JSON.stringify(dataObj));
                         delete clone.d.a;
-                        extend(true, clone, {d: {c: 'yes'}});
+                        extend(true, clone, {
+                            d: {
+                                c: 'yes'
+                            }
+                        });
 
                         assert.deepEqual(clone, data);
 
